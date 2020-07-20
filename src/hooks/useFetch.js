@@ -13,14 +13,14 @@ const initialState = {
 
 export const networkStatus = { FETCHING, FETCHED, FETCH_ERROR, IDLE };
 
-const fetchReducer = (state, action) => {
-  switch (action.type) {
+const fetchReducer = (state, { type, payload }) => {
+  switch (type) {
     case FETCHING:
       return { ...initialState, status: FETCHING };
     case FETCHED:
-      return { ...initialState, status: FETCHED, data: action.payload };
+      return { ...initialState, status: FETCHED, data: payload };
     case FETCH_ERROR:
-      return { ...initialState, status: FETCH_ERROR, error: action.payload };
+      return { ...initialState, status: FETCH_ERROR, error: payload };
     default:
       return state;
   }
@@ -67,7 +67,6 @@ export const useFetch = (url, manual = false) => {
       fetchData(url, cancelRequest);
     }
 
-    // eslint-disable-next-line consistent-return
     return () => {
       cancelRequest = true;
     };
