@@ -42,9 +42,7 @@ const HomeScreen = () => {
   };
   const handleFilter = text => {
     const newData = text
-      ? (sortedData || data).filter(({ fields: { title } }) =>
-          title.toLowerCase().includes(text.toLowerCase()),
-        )
+      ? data.filter(({ fields: { title } }) => title.toLowerCase().includes(text.toLowerCase()))
       : data;
 
     setSearch(text);
@@ -65,6 +63,8 @@ const HomeScreen = () => {
           data={[{ value: 'year' }, { value: 'episode' }]}
         />
         <SearchBar
+          autoCapitalize="none"
+          autoCorrect={false}
           containerStyle={styles.searchBar}
           value={search}
           onChangeText={handleFilter}
